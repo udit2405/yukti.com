@@ -820,14 +820,32 @@ blockquote{border-left:2px solid var(--brand);padding-left:20px;font-family:Frau
 
 <script>
 /* ---------- Config ---------- */
-/* Paste your deployed Google Apps Script Web App URL below (ends in /exec).
-   See lead-capture.gs in this repo for the script + setup steps. */
+/* Paste the deployed Google Apps Script Web App URL below (it ends in
+   /exec). Setup steps are at the top of lead-capture.gs in this repo.
+   Until a real URL is pasted here, forms still confirm to the visitor
+   but nothing is sent anywhere. */
 const CONFIG={SHEET_WEBHOOK_URL:"PASTE_YOUR_APPS_SCRIPT_EXEC_URL_HERE"};
+
+/* Where this visitor came from — utm_source if the link was tagged,
+   otherwise the referring site, otherwise a direct visit. */
+function leadSource(){
+  try{
+    const q=new URLSearchParams(location.search);
+    const utm=q.get('utm_source');
+    if(utm)return utm+(q.get('utm_campaign')?' / '+q.get('utm_campaign'):'');
+    if(document.referrer){
+      const h=new URL(document.referrer).hostname;
+      if(h&&h!==location.hostname)return h;
+    }
+    return 'direct';
+  }catch(e){return 'direct'}
+}
 
 function sendToSheet(type,data){
   if(!CONFIG.SHEET_WEBHOOK_URL||CONFIG.SHEET_WEBHOOK_URL.indexOf('PASTE_')===0)return;
   fetch(CONFIG.SHEET_WEBHOOK_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},
-    body:JSON.stringify({type,...data,page:location.hash||'#home',ts:new Date().toISOString()})}).catch(()=>{});
+    body:JSON.stringify({type,...data,page:location.hash||'#home',source:leadSource(),
+      ts:new Date().toISOString()})}).catch(()=>{});
 }
 
 /* ---------- Router ---------- */
