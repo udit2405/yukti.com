@@ -86,8 +86,27 @@ function doPost(e) {
   }
 }
 
+/* Health check. Open the /exec URL in a browser: it names the exact
+   spreadsheet this script writes into and how many rows each tab holds,
+   which is the quickest way to tell "nothing is being saved" apart from
+   "it is saving somewhere you are not looking". */
 function doGet() {
-  return reply('Yukti lead capture is live.');
+  try {
+    const ss = getSpreadsheet();
+    let out = 'Yukti lead capture is live.\n\n'
+            + 'Writing into: ' + ss.getName() + '\n'
+            + ss.getUrl() + '\n\nTabs:\n';
+    Object.keys(SHEETS).forEach(function (k) {
+      const name = SHEETS[k].tab;
+      const sh = ss.getSheetByName(name);
+      out += '  ' + name + ': '
+           + (sh ? Math.max(0, sh.getLastRow() - 1) + ' row(s)' : 'not created yet')
+           + '\n';
+    });
+    return reply(out);
+  } catch (err) {
+    return reply('Yukti lead capture is live, but cannot reach a spreadsheet: ' + err.message);
+  }
 }
 
 function getTab(config) {
