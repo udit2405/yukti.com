@@ -98,8 +98,15 @@ nav a.nl:hover,nav a.nl.active{color:var(--ink);background:var(--surface2)}
 .pill{display:inline-block;font-size:.73rem;font-weight:600;letter-spacing:.02em;padding:4px 12px;border-radius:999px;background:var(--surface2);color:var(--ink2);margin:2px 5px 2px 0;border:1px solid var(--border)}
 .pill.up{background:rgba(15,118,110,.08);color:var(--signal);border-color:rgba(15,118,110,.18)}
 /* PRICING */
-.price-card{position:relative}
+.price-grid{display:grid;gap:16px;align-items:stretch;grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+@media(min-width:1200px){.price-grid{grid-template-columns:repeat(5,1fr)}.price-grid .card{padding:24px 20px}}
+.price-card{position:relative;display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s,border-color .3s}
+.price-card:hover{transform:translateY(-5px);box-shadow:0 4px 10px rgba(22,21,15,.06),0 28px 56px rgba(22,21,15,.13)}
+.price-card>p{min-height:2.9em}
+.price-card ul{flex:1}
+.price-card .btn{margin-top:auto;align-self:stretch;text-align:center}
 .price-card.featured{border-color:var(--ink);border-width:1.5px;box-shadow:0 2px 4px rgba(22,21,15,.05),0 24px 48px rgba(22,21,15,.10)}
+.price-card.featured::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--brand),var(--signal));border-radius:18px 18px 0 0}
 .price-card .tag{position:absolute;top:-13px;left:26px;background:var(--ink);color:var(--bg);font-size:.71rem;font-weight:600;letter-spacing:.04em;padding:4px 14px;border-radius:999px}
 .price{font-family:Fraunces,serif;font-weight:500;font-size:2.2rem;margin:10px 0 2px}
 .price small{font-size:.85rem;color:var(--ink2);font-family:Inter;font-weight:400}
@@ -643,7 +650,7 @@ a.res-card:hover .res-read{text-decoration:underline;text-underline-offset:3px}
     <section style="padding-top:28px">
       <h1>Transparent pricing.<br>Yes, really.</h1>
       <p class="lead" style="max-width:620px;margin-top:14px">Most agencies hide pricing to negotiate. We publish it to qualify. All INR, ex-GST · 90-day minimum · annual prepay = 2 months free.</p>
-      <div class="grid g4" style="margin-top:38px;align-items:start">
+      <div class="price-grid" style="margin-top:38px">
         <div class="card price-card"><h3>Launch</h3><div class="price">₹40K<small>/mo</small></div><p style="font-size:.88rem">Solopreneurs & small businesses, first digital hire</p>
           <ul><li>1 core channel (SEO or social)</li><li>Google Business Profile + local SEO</li><li>WhatsApp Business setup</li><li>Quarterly AI visibility snapshot</li><li>Monthly report, no strategy call</li></ul><a class="btn ghost sm" href="#book">Start here</a></div>
         <div class="card price-card"><h3>Starter</h3><div class="price">₹65K<small>/mo</small></div><p style="font-size:.88rem">SMEs building their core digital engine</p>
