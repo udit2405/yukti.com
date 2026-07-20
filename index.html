@@ -232,6 +232,27 @@ blockquote{border-left:2px solid var(--brand);padding-left:20px;font-family:Frau
   .hero{padding:150px 0 80px}
   .stat{border-left:none;padding:4px 24px 4px 0}
 }
+/* ABOUT PAGE */
+.abt-cols{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;margin-top:34px;align-items:start}
+@media(max-width:860px){.abt-cols{grid-template-columns:1fr;gap:24px}}
+.abt-pq{font-family:Fraunces,serif;font-weight:500;font-size:clamp(1.5rem,2.8vw,2.1rem);line-height:1.3;letter-spacing:-.01em;color:var(--ink);
+  border-left:3px solid var(--brand);padding:6px 0 6px 26px;margin:44px 0}
+.abt-pq i{color:var(--brand)}
+.abt-pr{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-top:28px}
+@media(max-width:900px){.abt-pr{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.abt-pr{grid-template-columns:1fr}}
+.abt-p{background:var(--bg);padding:26px 24px;position:relative;transition:background .25s}
+.abt-p:hover{background:var(--surface)}
+.abt-p .num{font-family:'JetBrains Mono',monospace;font-size:.74rem;font-weight:700;color:var(--brand)}
+.abt-p h3{margin:10px 0 8px;font-size:1.02rem}
+.abt-p p{font-size:.9rem;margin:0}
+.abt-p::after{content:"";position:absolute;left:24px;right:24px;bottom:0;height:2px;background:var(--brand);transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.abt-p:hover::after{transform:scaleX(1)}
+.role{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:18px 22px;background:var(--surface);border:1px solid var(--border);border-radius:14px;transition:transform .25s,box-shadow .25s}
+.role:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.role b{font-size:.98rem}
+.role span{font-size:.8rem;color:var(--ink2)}
+.perks{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
 /* FLOATING VIDEO SHOWCASE */
 #vw{position:fixed;right:22px;bottom:22px;z-index:220;width:158px;transition:width .45s cubic-bezier(.22,1,.36,1),right .45s cubic-bezier(.22,1,.36,1),bottom .45s,transform .45s cubic-bezier(.22,1,.36,1),opacity .35s}
 #vw.in{transform:translateY(calc(100% + 40px));opacity:0;pointer-events:none}
@@ -779,22 +800,54 @@ a.res-card:hover .res-read{text-decoration:underline;text-underline-offset:3px}
   <div class="container">
     <div class="crumb">Home / About</div>
     <section style="padding-top:28px">
-      <h1>The firm we wished existed.</h1>
-      <div style="max-width:720px;margin-top:22px">
-        <p style="font-size:1.1rem">India's mid-market is caught between two bad options. Big-4 digital arms charge ₹2 crore to produce a roadmap. Freelancers charge ₹2 lakh to produce a website. Nobody sells what companies actually need: <b style="color:var(--ink)">working AI systems plus the growth engine to feed them</b> — at mid-market prices, with enterprise discipline.</p>
-        <p style="margin-top:16px">So we built it. Senior strategists who write their own automations. Designers who understand conversion. Engineers who read P&Ls. Small pods, AI-leveraged, shipping every week. We run our own company on the exact systems we sell — our funnel, reporting, and operations are the live demo.</p>
+      <div class="eyebrow reveal">About Yukti</div>
+      <h1 class="reveal">The firm we<br>wished <i style="color:var(--brand)">existed.</i></h1>
+
+      <div class="abt-cols">
+        <div class="reveal">
+          <p class="lead">India's mid-market is caught between two bad options. Big-4 digital arms charge ₹2 crore to produce a roadmap. Freelancers charge ₹2 lakh to produce a website. Nobody sells what companies actually need: <b style="color:var(--ink)">working AI systems plus the growth engine to feed them</b> — at mid-market prices, with enterprise discipline.</p>
+        </div>
+        <div class="reveal">
+          <p>So we built it. Senior strategists who write their own automations. Designers who understand conversion. Engineers who read P&amp;Ls. Small pods, AI-leveraged, shipping every week.</p>
+          <p style="margin-top:12px">We run our own company on the exact systems we sell — our funnel, our reporting, our operations. This website, its lead capture, and the dashboards behind it are the live demo.</p>
+        </div>
       </div>
-      <h2 style="margin-top:52px">What we believe</h2>
-      <div class="grid g3" style="margin-top:24px">
-        <div class="card"><h3>Outcomes over output</h3><p>We sell revenue, pipeline, and hours saved — never deliverables for their own sake. Every engagement has a number attached.</p></div>
-        <div class="card"><h3>Ship weekly</h3><p>Decks don't compound; shipped systems do. Working software or live campaigns within 14 days of kickoff.</p></div>
-        <div class="card"><h3>Radical clarity</h3><p>Published pricing, fixed scopes, plain-language contracts, dashboards a CEO actually reads.</p></div>
-        <div class="card"><h3>Build with, not for</h3><p>We train your team and hand over documented systems. Dependency is a bug, not a business model.</p></div>
-        <div class="card"><h3>Taste is a moat</h3><p>Premium design and writing in everything — in an AI world, judgment is what remains scarce.</p></div>
-        <div class="card"><h3>Honest by default</h3><p>We publish misses in monthly reports next to wins. Trust compounds faster than spin.</p></div>
+
+      <div class="abt-pq reveal">"Decks don't compound.<br><i>Shipped systems do.</i>"</div>
+
+      <div class="stat-row reveal">
+        <div class="stat"><b>14 days</b><span>from kickoff to working software or live campaigns</span></div>
+        <div class="stat"><b>Weekly</b><span>Friday demos, every week, no exceptions</span></div>
+        <div class="stat"><b>40+</b><span>services under one accountable retainer</span></div>
+        <div class="stat"><b>100%</b><span>founder-reviewed — every project, no hand-offs</span></div>
       </div>
-      <h2 style="margin-top:52px">Careers</h2>
-      <p style="max-width:640px">We hire T-shaped operators who use AI like a power tool. Open roles: <b>GEO Analyst</b> · <b>Automation Engineer (n8n/LangChain)</b> · <b>Growth Strategist</b> · <b>Content Editor</b>. Remote-first, Mumbai hub, quarterly offsites, learning budget ₹50K/yr. Write to <span class="mono">careers@yukti.agency</span> with something you've shipped — no cover letters.</p>
+
+      <h2 style="margin-top:64px" class="reveal">What we believe</h2>
+      <div class="abt-pr reveal">
+        <div class="abt-p"><span class="num">01</span><h3>Outcomes over output</h3><p>We sell revenue, pipeline, and hours saved — never deliverables for their own sake. Every engagement has a number attached.</p></div>
+        <div class="abt-p"><span class="num">02</span><h3>Ship weekly</h3><p>Decks don't compound; shipped systems do. Working software or live campaigns within 14 days of kickoff.</p></div>
+        <div class="abt-p"><span class="num">03</span><h3>Radical clarity</h3><p>Published pricing, fixed scopes, plain-language contracts, dashboards a CEO actually reads.</p></div>
+        <div class="abt-p"><span class="num">04</span><h3>Build with, not for</h3><p>We train your team and hand over documented systems. Dependency is a bug, not a business model.</p></div>
+        <div class="abt-p"><span class="num">05</span><h3>Taste is a moat</h3><p>Premium design and writing in everything — in an AI world, judgment is what remains scarce.</p></div>
+        <div class="abt-p"><span class="num">06</span><h3>Honest by default</h3><p>We publish misses in monthly reports next to wins. Trust compounds faster than spin.</p></div>
+      </div>
+
+      <h2 style="margin-top:64px" class="reveal">Careers</h2>
+      <p class="reveal" style="max-width:620px;margin-top:10px">We hire T-shaped operators who use AI like a power tool. Write to <span class="mono">careers@yukti.agency</span> with something you've shipped — no cover letters.</p>
+      <div class="grid g2 reveal" style="margin-top:22px;gap:14px">
+        <div class="role"><b>GEO Analyst</b><span>Remote · Full-time</span></div>
+        <div class="role"><b>Automation Engineer (n8n/LangChain)</b><span>Remote · Full-time</span></div>
+        <div class="role"><b>Growth Strategist</b><span>Remote · Full-time</span></div>
+        <div class="role"><b>Content Editor</b><span>Remote · Part-time</span></div>
+      </div>
+      <div class="perks reveal">
+        <span class="pill">Remote-first</span><span class="pill">Mumbai hub</span><span class="pill">Quarterly offsites</span><span class="pill">₹50K/yr learning budget</span>
+      </div>
+
+      <div class="card reveal" style="margin-top:64px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div><h3>Sound like a partner you'd want?</h3><p style="margin:6px 0 0;font-size:.92rem">Start with a free audit — a number, not a pitch.</p></div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="btn" href="#audit">Get my free audit</a><a class="btn ghost" href="#book">Book a call</a></div>
+      </div>
     </section>
   </div>
 </div>
