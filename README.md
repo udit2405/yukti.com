@@ -1,12 +1,12 @@
-# yukti.com
+# reckona-ai
 
-Marketing site for Yukti, served by GitHub Pages from `main` at
-<https://udit2405.github.io/yukti.com/>.
+Marketing site for Reckona AI, served by GitHub Pages from `main` at
+<https://reckonaai.com/> (custom domain via `CNAME`).
 
 - `index.html` — the whole site (single file, inline CSS/JS, hash router)
 - `assets/` — background video loops and their poster frames
 - `lead-capture.gs` — Google Apps Script that writes form submissions
-  into the Yukti Leads spreadsheet
+  into the Reckona AI Leads spreadsheet
 
 ## Lead capture
 
@@ -30,7 +30,7 @@ account that owns the sheet:
    `CONFIG.SHEET_WEBHOOK_URL` near the top of the `<script>` block in
    `index.html`, then commit.
 
-Opening the `/exec` URL in a browser prints "Yukti lead capture is
+Opening the `/exec` URL in a browser prints "Reckona AI lead capture is
 live." — check that before wiring it into the site. Running the
 `testWrite` function from the Apps Script editor creates the tabs and
 writes one dummy row.

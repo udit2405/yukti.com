@@ -1,6 +1,6 @@
-/* Yukti — lead capture backend.
+/* Reckona AI — lead capture backend.
 
-   Writes every form submission from index.html into the "Yukti Leads"
+   Writes every form submission from index.html into the "Reckona AI Leads"
    spreadsheet. Each submission POSTs a JSON body with a `type` field
    ("audit_request" | "booking" | "newsletter") and is appended to the
    matching tab; tabs and their header rows are created on first use.
@@ -16,7 +16,7 @@
         into CONFIG.SHEET_WEBHOOK_URL at the top of the script block in
         index.html.
 
-   Visiting the /exec URL in a browser should print "Yukti lead capture
+   Visiting the /exec URL in a browser should print "Reckona AI lead capture
    is live." — that confirms the deployment before you touch the site.
 */
 
@@ -93,7 +93,7 @@ function doPost(e) {
 function doGet() {
   try {
     const ss = getSpreadsheet();
-    let out = 'Yukti lead capture is live.\n\n'
+    let out = 'Reckona AI lead capture is live.\n\n'
             + 'Writing into: ' + ss.getName() + '\n'
             + ss.getUrl() + '\n\nTabs:\n';
     Object.keys(SHEETS).forEach(function (k) {
@@ -105,7 +105,7 @@ function doGet() {
     });
     return reply(out);
   } catch (err) {
-    return reply('Yukti lead capture is live, but cannot reach a spreadsheet: ' + err.message);
+    return reply('Reckona AI lead capture is live, but cannot reach a spreadsheet: ' + err.message);
   }
 }
 
