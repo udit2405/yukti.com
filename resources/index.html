@@ -52,24 +52,72 @@
   </a>
 </section>
 
+<style>
+.res-search{margin:20px 0 6px}
+.res-search .box{position:relative;max-width:540px}
+.res-search input{width:100%;padding:14px 18px 14px 46px;border:1px solid var(--border);border-radius:999px;background:var(--surface);color:var(--ink);font:inherit;font-size:1rem;transition:border-color .15s}
+.res-search input:focus{outline:none;border-color:var(--ink)}
+.res-search .mag{position:absolute;left:18px;top:50%;transform:translateY(-50%);width:15px;height:15px;border:1.8px solid var(--ink2);border-radius:50%;pointer-events:none}
+.res-search .mag::after{content:"";position:absolute;right:-6px;bottom:-4px;width:7px;height:1.8px;background:var(--ink2);transform:rotate(45deg)}
+.res-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.res-chips .pill{cursor:pointer;user-select:none;margin:0}
+.res-chips .pill.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.res-count{font-size:.82rem;color:var(--ink2);margin-top:14px}
+</style>
 <section>
   <h2>All articles</h2>
-  <div class="grid g2" style="margin-top:18px">
-    <a class="card" href="/resources/ai-visibility-indian-brands-study/"><span class="pill">GEO</span><h3 style="margin-top:10px">We asked ChatGPT about 50 Indian brands. 34 were invisible.</h3><p style="font-size:.9rem">Our study of AI visibility across Indian mid-market leaders. · 8 min</p><span class="go">Read →</span></a>
-    <a class="card" href="/resources/seo-vs-geo-strategy/"><span class="pill">SEO</span><h3 style="margin-top:10px">SEO isn't dying. It's splitting in two.</h3><p style="font-size:.9rem">Why rankings and retrievability are now different games. · 7 min</p><span class="go">Read →</span></a>
-    <a class="card" href="/resources/cost-of-manual-operations-sme/"><span class="pill">Automation</span><h3 style="margin-top:10px">The ₹40-lakh spreadsheet: what manual ops really cost an SME</h3><p style="font-size:.9rem">A cost model you can copy, plus the 5 fastest-payback automations. · 9 min</p><span class="go">Read →</span></a>
-    <a class="card" href="/resources/whatsapp-business-automation-guide-india/"><span class="pill">WhatsApp</span><h3 style="margin-top:10px">The WhatsApp Business Automation Guide for India</h3><p style="font-size:.9rem">Verified API setup, compliance, and 12 revenue flows with benchmarks. · 12 min</p><span class="go">Read →</span></a>
-    <a class="card" href="/resources/executive-guide-ai-agents/"><span class="pill">Leadership</span><h3 style="margin-top:10px">An executive's guide to AI agents (without the hype)</h3><p style="font-size:.9rem">What agents can do in 2026, where they fail, and the governance checklist. · 10 min</p><span class="go">Read →</span></a>
-    <a class="card" href="/resources/ai-visibility-fmcg-india-shelf-space/"><span class="pill">GEO · FMCG</span><h3 style="margin-top:10px">How Indian FMCG brands are losing shelf space to AI recommendation engines</h3><p style="font-size:.9rem">AI assistants are becoming a new shelf. Most FMCG brands aren't on it. · 8 min</p><span class="go">Read →</span></a>
-    <a class="card" href="/resources/ai-search-retail-loyalty-india/"><span class="pill">GEO · Retail</span><h3 style="margin-top:10px">Why retail loyalty programs are quietly becoming AI recommendation targets</h3><p style="font-size:.9rem">Store-choice questions are moving into AI answers. · 7 min</p><span class="go">Read →</span></a>
-    <a class="card" href="/resources/knowledge-assistants-vs-chatbots-manufacturing/"><span class="pill">Automation</span><h3 style="margin-top:10px">Knowledge assistants vs chatbots: what manufacturers actually need</h3><p style="font-size:.9rem">Scripted bot vs a system grounded in your own SOPs and specs. · 8 min</p><span class="go">Read →</span></a>
-    <a class="card" href="/resources/document-processing-automation-workflows/"><span class="pill">Automation</span><h3 style="margin-top:10px">Document processing automation: the 6 back-office workflows worth automating first</h3><p style="font-size:.9rem">Quotes, certificates, invoices, contracts, reports and reconciliation, ranked. · 9 min</p><span class="go">Read →</span></a>
-    <a class="card" href="/resources/ai-readiness-audit-guide/"><span class="pill">Consulting</span><h3 style="margin-top:10px">The AI readiness audit: what it actually checks (and what it costs to skip)</h3><p style="font-size:.9rem">The five things a real audit examines. · 9 min</p><span class="go">Read →</span></a>
-    <a class="card" href="/resources/fractional-ai-officer-guide/"><span class="pill">Leadership</span><h3 style="margin-top:10px">The fractional AI officer: when a full-time hire doesn't make sense yet</h3><p style="font-size:.9rem">What the role does, and how to tell which stage you're at. · 7 min</p><span class="go">Read →</span></a>
-    <a class="card" href="/resources/cro-ai-era-websites/"><span class="pill">Digital Growth</span><h3 style="margin-top:10px">CRO for AI-era websites</h3><p style="font-size:.9rem">Pages that convert humans and get cited by AI — and where they conflict. · 8 min</p><span class="go">Read →</span></a>
-    <a class="card" href="/resources/ai-automation-learning-development-corporate-training/"><span class="pill">HR · L&amp;D</span><h3 style="margin-top:10px">L&amp;D in the AI era: what corporate training teams should automate first</h3><p style="font-size:.9rem">Which training workflows automate cleanly today, and which still need a human. · 8 min</p><span class="go">Read →</span></a>
+  <div class="res-search">
+    <div class="box"><span class="mag"></span><input id="artSearch" type="search" autocomplete="off" placeholder="Search articles — e.g. ChatGPT, automation, local SEO…" oninput="filterArticles()" aria-label="Search articles"></div>
+    <div class="res-chips" id="artChips">
+      <span class="pill on" data-cat="all" onclick="setArtCat('all',this)">All</span>
+      <span class="pill" data-cat="geo" onclick="setArtCat('geo',this)">GEO</span>
+      <span class="pill" data-cat="seo" onclick="setArtCat('seo',this)">SEO</span>
+      <span class="pill" data-cat="automation" onclick="setArtCat('automation',this)">Automation</span>
+      <span class="pill" data-cat="consulting" onclick="setArtCat('consulting',this)">Consulting</span>
+      <span class="pill" data-cat="leadership" onclick="setArtCat('leadership',this)">Leadership</span>
+    </div>
   </div>
+  <div class="grid g2" id="artGrid" style="margin-top:20px">
+    <a class="card" href="/resources/how-to-get-cited-by-chatgpt/" data-cat="geo" data-kw="chatgpt gemini perplexity claude citation ai answers visibility checklist"><span class="pill up">GEO · Playbook</span><h3 style="margin-top:10px">How to get cited by ChatGPT (and Gemini, Perplexity): a 2026 checklist</h3><p style="font-size:.9rem">The six signals AI engines use to choose which brands to cite. · 8 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/geo-vs-seo-vs-aeo/" data-cat="geo seo" data-kw="aeo answer engine optimization acronyms difference"><span class="pill">GEO · Explainer</span><h3 style="margin-top:10px">GEO vs SEO vs AEO: the AI-search acronyms, decoded</h3><p style="font-size:.9rem">What each term means, where they overlap, and how to budget. · 7 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/ai-automation-manufacturing-roi/" data-cat="automation" data-kw="manufacturing factory roi certificates rfq payback workflows"><span class="pill">Automation · Manufacturing</span><h3 style="margin-top:10px">AI automation for Indian manufacturers: 7 workflows ranked by ROI</h3><p style="font-size:.9rem">The seven factory workflows with the fastest payback, ranked. · 9 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/local-seo-india-playbook/" data-cat="seo" data-kw="local map pack google business profile near me reviews citations"><span class="pill">SEO · Local</span><h3 style="margin-top:10px">Local SEO for Indian businesses: the 2026 playbook</h3><p style="font-size:.9rem">Google Business Profile, citations, reviews and the map pack. · 8 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/ai-sales-agents-vs-sdrs/" data-cat="automation" data-kw="sales sdr agents crm pipeline hybrid lead"><span class="pill">Automation · Sales</span><h3 style="margin-top:10px">AI sales agents vs human SDRs: where each wins in 2026</h3><p style="font-size:.9rem">What AI handles, where humans win, and the hybrid model. · 7 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/entity-seo-knowledge-graph/" data-cat="geo seo" data-kw="entity knowledge graph wikidata schema machine legible"><span class="pill">GEO · Technical</span><h3 style="margin-top:10px">Entity SEO: making your brand machine-legible to AI</h3><p style="font-size:.9rem">What a brand entity is, and how AI engines understand you. · 8 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/ai-visibility-indian-brands-study/" data-cat="geo" data-kw="study chatgpt indian brands invisible visibility"><span class="pill">GEO</span><h3 style="margin-top:10px">We asked ChatGPT about 50 Indian brands. 34 were invisible.</h3><p style="font-size:.9rem">Our study of AI visibility across Indian mid-market leaders. · 8 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/seo-vs-geo-strategy/" data-cat="seo geo" data-kw="rankings retrievability budget split strategy"><span class="pill">SEO</span><h3 style="margin-top:10px">SEO isn't dying. It's splitting in two.</h3><p style="font-size:.9rem">Why rankings and retrievability are now different games. · 7 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/cost-of-manual-operations-sme/" data-cat="automation" data-kw="cost model manual ops sme payback spreadsheet"><span class="pill">Automation</span><h3 style="margin-top:10px">The ₹40-lakh spreadsheet: what manual ops really cost an SME</h3><p style="font-size:.9rem">A cost model you can copy, plus the 5 fastest-payback automations. · 9 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/whatsapp-business-automation-guide-india/" data-cat="automation" data-kw="whatsapp business api compliance revenue flows"><span class="pill">WhatsApp</span><h3 style="margin-top:10px">The WhatsApp Business Automation Guide for India</h3><p style="font-size:.9rem">Verified API setup, compliance, and 12 revenue flows with benchmarks. · 12 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/executive-guide-ai-agents/" data-cat="leadership automation" data-kw="agents governance executive hype"><span class="pill">Leadership</span><h3 style="margin-top:10px">An executive's guide to AI agents (without the hype)</h3><p style="font-size:.9rem">What agents can do in 2026, where they fail, and the governance checklist. · 10 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/ai-visibility-fmcg-india-shelf-space/" data-cat="geo" data-kw="fmcg shelf space recommendation retail brands"><span class="pill">GEO · FMCG</span><h3 style="margin-top:10px">How Indian FMCG brands are losing shelf space to AI recommendation engines</h3><p style="font-size:.9rem">AI assistants are becoming a new shelf. Most FMCG brands aren't on it. · 8 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/ai-search-retail-loyalty-india/" data-cat="geo" data-kw="retail loyalty store choice recommendation"><span class="pill">GEO · Retail</span><h3 style="margin-top:10px">Why retail loyalty programs are quietly becoming AI recommendation targets</h3><p style="font-size:.9rem">Store-choice questions are moving into AI answers. · 7 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/knowledge-assistants-vs-chatbots-manufacturing/" data-cat="automation" data-kw="knowledge assistant chatbot sop manufacturing rag"><span class="pill">Automation</span><h3 style="margin-top:10px">Knowledge assistants vs chatbots: what manufacturers actually need</h3><p style="font-size:.9rem">Scripted bot vs a system grounded in your own SOPs and specs. · 8 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/document-processing-automation-workflows/" data-cat="automation" data-kw="document processing invoices certificates contracts payback"><span class="pill">Automation</span><h3 style="margin-top:10px">Document processing automation: the 6 back-office workflows worth automating first</h3><p style="font-size:.9rem">Quotes, certificates, invoices, contracts, reports and reconciliation, ranked. · 9 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/ai-readiness-audit-guide/" data-cat="consulting" data-kw="ai readiness audit assessment roadmap"><span class="pill">Consulting</span><h3 style="margin-top:10px">The AI readiness audit: what it actually checks (and what it costs to skip)</h3><p style="font-size:.9rem">The five things a real audit examines. · 9 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/fractional-ai-officer-guide/" data-cat="leadership consulting" data-kw="fractional ai officer hire caio leadership"><span class="pill">Leadership</span><h3 style="margin-top:10px">The fractional AI officer: when a full-time hire doesn't make sense yet</h3><p style="font-size:.9rem">What the role does, and how to tell which stage you're at. · 7 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/cro-ai-era-websites/" data-cat="seo" data-kw="cro conversion rate optimization websites"><span class="pill">Digital Growth</span><h3 style="margin-top:10px">CRO for AI-era websites</h3><p style="font-size:.9rem">Pages that convert humans and get cited by AI — and where they conflict. · 8 min</p><span class="go">Read →</span></a>
+    <a class="card" href="/resources/ai-automation-learning-development-corporate-training/" data-cat="automation" data-kw="l&d learning development corporate training hr"><span class="pill">HR · L&amp;D</span><h3 style="margin-top:10px">L&amp;D in the AI era: what corporate training teams should automate first</h3><p style="font-size:.9rem">Which training workflows automate cleanly today, and which still need a human. · 8 min</p><span class="go">Read →</span></a>
+  </div>
+  <p class="res-count" id="artNone" style="display:none">No articles match your search — <a href="#" onclick="clearArt();return false">clear it</a> to see all 19, or <a href="/#audit">ask us directly</a>.</p>
 </section>
+<script>
+var artCat='all';
+function setArtCat(c,el){artCat=c;document.querySelectorAll('#artChips .pill').forEach(function(p){p.classList.remove('on')});el.classList.add('on');filterArticles();}
+function filterArticles(){
+  var q=(document.getElementById('artSearch').value||'').trim().toLowerCase();
+  var words=q.split(/\s+/).filter(Boolean),shown=0;
+  document.querySelectorAll('#artGrid .card').forEach(function(c){
+    var hay=(c.textContent+' '+(c.dataset.kw||'')+' '+(c.dataset.cat||'')).toLowerCase();
+    var cats=(c.dataset.cat||'').split(' ');
+    var catOk=artCat==='all'||cats.indexOf(artCat)>-1;
+    var qOk=words.every(function(w){return hay.indexOf(w)>-1});
+    var hit=catOk&&qOk;c.style.display=hit?'':'none';if(hit)shown++;
+  });
+  document.getElementById('artNone').style.display=shown?'none':'block';
+}
+function clearArt(){var i=document.getElementById('artSearch');if(i)i.value='';artCat='all';
+  document.querySelectorAll('#artChips .pill').forEach(function(p,n){p.classList.toggle('on',n===0)});filterArticles();}
+</script>
 
 <div class="cta">
   <h2>Applied Intelligence — the newsletter</h2>
